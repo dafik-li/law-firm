@@ -1,9 +1,12 @@
 package com.solvd.lawfirm.controller;
 
+import com.solvd.lawfirm.collections.CrimeHashMap;
+import com.solvd.lawfirm.collections.ProsecutorLinkedList;
 import com.solvd.lawfirm.collections.SolicitorArrayList;
+import com.solvd.lawfirm.collections.SuspectedHashSet;
+import com.solvd.lawfirm.entity.result.Result;
 import com.solvd.lawfirm.entity.crimes.*;
 import com.solvd.lawfirm.entity.persons.*;
-import com.solvd.lawfirm.entity.result.Result;
 import com.solvd.lawfirm.exceptions.CrimetypeException;
 import com.solvd.lawfirm.exceptions.ProsecutorLevelException;
 import com.solvd.lawfirm.exceptions.SolicitorLevelException;
@@ -12,9 +15,7 @@ import com.solvd.lawfirm.interfaces.LevelProsecutorInterface;
 import com.solvd.lawfirm.interfaces.LevelSolicitorInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Generator implements LevelProsecutorInterface, LevelSolicitorInterface {
@@ -22,20 +23,25 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         System.setProperty("log4j.configurationFile", "log4j2.xml");
     }
     private final static Logger LOGGER = (Logger) LogManager.getLogger(Generator.class);
-    private final static Object Result = null;
+    private Result result;
     private final static double sum = 0;
     private final Scanner scanner;
     private final Validator validator;
-    private final CrimeFactory crimeFactory;
-    private SolicitorArrayList solicitorArrayList;
+    private final SolicitorArrayList solicitorArrayList;
+    private final ProsecutorLinkedList<ProsecutorPerson> prosecutorLinkedList;
+    private final SuspectedHashSet suspectedHashSet;
+    private final CrimeHashMap crimeHashMap;
 
     public Generator() {
         this.validator = new Validator();
-        this.crimeFactory = new CrimeFactory();
         this.scanner = new Scanner(System.in);
         this.solicitorArrayList = new SolicitorArrayList();
+        this.prosecutorLinkedList = new ProsecutorLinkedList();
+        this.suspectedHashSet = new SuspectedHashSet();
+        this.crimeHashMap = new CrimeHashMap();
     }
-    public AbstractCrime getCrime() {
+
+    public AbstractCrime getCrime() throws Exception {
         LOGGER.info("\n" + "Type the crime (homicide, robbery, hooliganism): ");
         String crimeName = scanner.nextLine();
         try {
@@ -45,7 +51,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
             return getCrime();
         }
         LOGGER.info("The type of crime is - " + crimeName);
-        return crimeFactory.create(crimeName);
+        return crimeHashMap.findCrime(crimeHashMap.createCrimeHashMap(), crimeName);
     }
     @Override
     public int getSolicitorLevel() {
@@ -92,26 +98,24 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         int numberForArrested = scanner.nextInt();
         try {
             validator.validateArrestedBefore(numberForArrested);
-            LOGGER.info("Was arrested before - " + numberForArrested);
+            LOGGER.info("You typed - " + numberForArrested);
         } catch (WasArrestedBeforeException e) {
             LOGGER.error(e.toString());
-            isWasArrestedBefore();
         }
         if (numberForArrested == 1) {
             return true;
         }
         return false;
     }
-    public void getResult() {
+    public void getResult() throws Exception {
         AbstractCrime crime = getCrime();
-        SolicitorArrayList solicitorArrayList = new SolicitorArrayList();
-        SolicitorPerson solicitorPerson = new SolicitorPerson('m', "dima", "pupkin", 30, getSolicitorLevel());
-        ProsecutorPerson prosecutorPerson = new ProsecutorPerson('m', "petya", "ivanov", 40, getProsecutorLevel());
-        SuspectedPerson suspectedPerson = new SuspectedPerson('f', "ira", "petrova", 25, isWasArrestedBefore());
-        Judge calcResult = new Judge((com.solvd.lawfirm.entity.result.Result) Result, sum);
-        double resultYears = calcResult.exeCalc(suspectedPerson, crime, solicitorPerson, prosecutorPerson);
-        Result result = new Result(resultYears, suspectedPerson, solicitorPerson, prosecutorPerson);
-        double sum = calcResult.exeCalc(solicitorPerson, crime);
+        SolicitorPerson solicitor = solicitorArrayList.findSolicitor(getSolicitorLevel());
+        ProsecutorPerson prosecutor = prosecutorLinkedList.findSProsecutor(getProsecutorLevel());
+        SuspectedPerson suspected = suspectedHashSet.findSuspected(isWasArrestedBefore());
+        Judge calcResult = new Judge(result, sum);
+        double resultYears = calcResult.exeCalc(suspected, crime, solicitor, prosecutor);
+        Result result = new Result(resultYears, suspected, solicitor, prosecutor);
+        double sum = calcResult.exeCalc(solicitor, crime);
         LOGGER.info("\n" + result + "\n");
         LOGGER.info("\n" + "The payment is: " + sum);
         try (PrintWriter writer = new PrintWriter(new File("judgement.txt"))) {

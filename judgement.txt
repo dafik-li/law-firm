@@ -1,23 +1,23 @@
 Court decision: 15.0 years
 
 Prisoner:___________________
-Gender: f
-Name: ira
-Surname: petrova
-Age: 25
+Gender: m
+Name: jeremy
+Surname: clarkson
+Age: 65
 Was arrested before: true
 
 Solicitor:___________________
 Gender: m
-Name: dima
-Surname: pupkin
-Age: 30
+Name: al
+Surname: pacino
+Age: 80
 Level: 2
 
 Prosecutor:___________________
 Gender: m
-Name: petya
-Surname: ivanov
+Name: leo
+Surname: dicaprio
 Age: 40
 Level: 2
 The payment is: 4000.0

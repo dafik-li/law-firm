@@ -1,64 +1,61 @@
-2023-11-16 16:49:56.671 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:34.572 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 Type the crime (homicide, robbery, hooliganism): 
-2023-11-16 16:49:59.692 [main] INFO  com.solvd.lawfirm.controller.Generator - The type of crime is - robbery
-2023-11-16 16:49:59.695 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:37.984 [main] INFO  com.solvd.lawfirm.controller.Generator - The type of crime is - robbery
+2023-11-17 13:27:37.985 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 Enter the solicitor level (from 1 - to 3): 
-2023-11-16 16:50:00.516 [main] INFO  com.solvd.lawfirm.controller.Generator - Solicitor level is - 2
-2023-11-16 16:50:00.517 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:38.934 [main] INFO  com.solvd.lawfirm.controller.Generator - Solicitor level is - 2
+2023-11-17 13:27:38.936 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 Enter the prosecutor level (from 1 - to 3): 
-2023-11-16 16:50:00.986 [main] INFO  com.solvd.lawfirm.controller.Generator - Prosecutor level is - 2
-2023-11-16 16:50:00.987 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:39.662 [main] INFO  com.solvd.lawfirm.controller.Generator - Prosecutor level is - 2
+2023-11-17 13:27:39.664 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 Is arrested before (1 - yes, 0 - no)?: 
-2023-11-16 16:50:01.500 [main] ERROR com.solvd.lawfirm.controller.Generator - com.solvd.lawfirm.exceptions.WasArrestedBeforeException: Please type 1 or 0
-2023-11-16 16:50:01.500 [main] INFO  com.solvd.lawfirm.controller.Generator - 
-Is arrested before (1 - yes, 0 - no)?: 
-2023-11-16 16:50:02.685 [main] INFO  com.solvd.lawfirm.controller.Generator - Was arrested before - 0
-2023-11-16 16:50:02.699 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:41.014 [main] ERROR com.solvd.lawfirm.controller.Generator - com.solvd.lawfirm.exceptions.WasArrestedBeforeException: Please type 1 or 0
+2023-11-17 13:27:41.029 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 Court decision: 15.0 years
 
 Prisoner:___________________
-Gender: f
-Name: ira
-Surname: petrova
-Age: 25
+Gender: m
+Name: jeremy
+Surname: clarkson
+Age: 65
 Was arrested before: true
 
 Solicitor:___________________
 Gender: m
-Name: dima
-Surname: pupkin
-Age: 30
+Name: al
+Surname: pacino
+Age: 80
 Level: 2
 
 Prosecutor:___________________
 Gender: m
-Name: petya
-Surname: ivanov
+Name: leo
+Surname: dicaprio
 Age: 40
 Level: 2
 
-2023-11-16 16:50:02.699 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:41.030 [main] INFO  com.solvd.lawfirm.controller.Generator - 
 The payment is: 4000.0
-2023-11-16 16:50:02.702 [main] INFO  com.solvd.lawfirm.controller.Generator - Court decision: 15.0 years
-2023-11-16 16:50:02.703 [main] INFO  com.solvd.lawfirm.controller.Generator - 
-2023-11-16 16:50:02.703 [main] INFO  com.solvd.lawfirm.controller.Generator - Prisoner:___________________
-2023-11-16 16:50:02.703 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: f
-2023-11-16 16:50:02.703 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: ira
-2023-11-16 16:50:02.703 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: petrova
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 25
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - Was arrested before: true
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - 
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - Solicitor:___________________
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: m
-2023-11-16 16:50:02.704 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: dima
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: pupkin
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 30
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - Level: 2
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - 
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - Prosecutor:___________________
-2023-11-16 16:50:02.705 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: m
-2023-11-16 16:50:02.706 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: petya
-2023-11-16 16:50:02.706 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: ivanov
-2023-11-16 16:50:02.706 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 40
-2023-11-16 16:50:02.706 [main] INFO  com.solvd.lawfirm.controller.Generator - Level: 2
-2023-11-16 16:50:02.706 [main] INFO  com.solvd.lawfirm.controller.Generator - The payment is: 4000.0
+2023-11-17 13:27:41.033 [main] INFO  com.solvd.lawfirm.controller.Generator - Court decision: 15.0 years
+2023-11-17 13:27:41.033 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:41.033 [main] INFO  com.solvd.lawfirm.controller.Generator - Prisoner:___________________
+2023-11-17 13:27:41.033 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: m
+2023-11-17 13:27:41.033 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: jeremy
+2023-11-17 13:27:41.034 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: clarkson
+2023-11-17 13:27:41.034 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 65
+2023-11-17 13:27:41.034 [main] INFO  com.solvd.lawfirm.controller.Generator - Was arrested before: true
+2023-11-17 13:27:41.034 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:41.034 [main] INFO  com.solvd.lawfirm.controller.Generator - Solicitor:___________________
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: m
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: al
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: pacino
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 80
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Level: 2
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - 
+2023-11-17 13:27:41.035 [main] INFO  com.solvd.lawfirm.controller.Generator - Prosecutor:___________________
+2023-11-17 13:27:41.036 [main] INFO  com.solvd.lawfirm.controller.Generator - Gender: m
+2023-11-17 13:27:41.036 [main] INFO  com.solvd.lawfirm.controller.Generator - Name: leo
+2023-11-17 13:27:41.036 [main] INFO  com.solvd.lawfirm.controller.Generator - Surname: dicaprio
+2023-11-17 13:27:41.036 [main] INFO  com.solvd.lawfirm.controller.Generator - Age: 40
+2023-11-17 13:27:41.036 [main] INFO  com.solvd.lawfirm.controller.Generator - Level: 2
+2023-11-17 13:27:41.037 [main] INFO  com.solvd.lawfirm.controller.Generator - The payment is: 4000.0
