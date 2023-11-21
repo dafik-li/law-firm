@@ -23,8 +23,6 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         System.setProperty("log4j.configurationFile", "log4j2.xml");
     }
     private final static Logger LOGGER = (Logger) LogManager.getLogger(Generator.class);
-    private Result result;
-    private final static double sum = 0;
     private final Scanner scanner;
     private final Validator validator;
     private final SolicitorArrayList solicitorArrayList;
@@ -33,15 +31,14 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
     private final CrimeHashMap crimeHashMap;
 
     public Generator() {
-        this.validator = new Validator();
         this.scanner = new Scanner(System.in);
+        this.validator = new Validator();
         this.solicitorArrayList = new SolicitorArrayList();
-        this.prosecutorLinkedList = new ProsecutorLinkedList();
+        this.prosecutorLinkedList = new ProsecutorLinkedList<>();
         this.suspectedHashSet = new SuspectedHashSet();
         this.crimeHashMap = new CrimeHashMap();
     }
-
-    public AbstractCrime getCrime() throws Exception {
+    private AbstractCrime getCrime() throws Exception {
         LOGGER.info("\n" + "Type the crime (homicide, robbery, hooliganism): ");
         String crimeName = scanner.nextLine();
         try {
@@ -93,7 +90,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         }
         return levelProsecutor;
     }
-    public boolean isWasArrestedBefore() {
+    private boolean isWasArrestedBefore() {
         LOGGER.info("\n" + "Is arrested before (1 - yes, 0 - no)?: ");
         int numberForArrested = scanner.nextInt();
         try {
@@ -107,18 +104,33 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         }
         return false;
     }
+    private static class Judge {
+        public double exeCalc(SuspectedPerson suspectedPerson, AbstractCrime abstractCrime, SolicitorPerson solicitorPerson, ProsecutorPerson prosecutorPerson) {
+            double ratio;
+
+            if (suspectedPerson.isWasArrestedBefore()) {
+                ratio = 1.5;
+            } else {
+                ratio = 0.5;
+            }
+            return (ratio * abstractCrime.getTermOfPunishment()) / ((double) solicitorPerson.getSolicitorLevel() / prosecutorPerson.getProsecutorLevel());
+        }
+        public double exeCalc(SolicitorPerson solicitorPerson, AbstractCrime abstractCrime) {
+            return 1000 * solicitorPerson.getSolicitorLevel() * ((double) abstractCrime.getTermOfPunishment() / 5);
+        }
+    }
     public void getResult() throws Exception {
         AbstractCrime crime = getCrime();
         SolicitorPerson solicitor = solicitorArrayList.findSolicitor(getSolicitorLevel());
         ProsecutorPerson prosecutor = prosecutorLinkedList.findSProsecutor(getProsecutorLevel());
         SuspectedPerson suspected = suspectedHashSet.findSuspected(isWasArrestedBefore());
-        Judge calcResult = new Judge(result, sum);
+        Judge calcResult = new Judge();
         double resultYears = calcResult.exeCalc(suspected, crime, solicitor, prosecutor);
         Result result = new Result(resultYears, suspected, solicitor, prosecutor);
         double sum = calcResult.exeCalc(solicitor, crime);
         LOGGER.info("\n" + result + "\n");
         LOGGER.info("\n" + "The payment is: " + sum);
-        try (PrintWriter writer = new PrintWriter(new File("judgement.txt"))) {
+        try (PrintWriter writer = new PrintWriter("judgement.txt")) {
             writer.println(result);
             writer.println("The payment is: " + sum);
         } catch (FileNotFoundException e) {
