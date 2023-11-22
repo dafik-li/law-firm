@@ -16,6 +16,7 @@ public class Validator {
             case "hooliganism" : abstractCrime = new HooliganismCrime(); break;
             default : abstractCrime = new DefaultCrime(); break;
         }
+        crimeName.isEmpty()
         if (!crimeName.equals(abstractCrime.getTypeOfCrime())) {
             throw new CrimetypeException("Entered an invalid crime name. You typed - " + crimeName);
         }

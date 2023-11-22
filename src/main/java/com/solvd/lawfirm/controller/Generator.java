@@ -26,7 +26,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
     private final Scanner scanner;
     private final Validator validator;
     private final SolicitorArrayList solicitorArrayList;
-    private final ProsecutorLinkedList<ProsecutorPerson> prosecutorLinkedList;
+    private final ProsecutorLinkedList prosecutorLinkedList;
     private final SuspectedHashSet suspectedHashSet;
     private final CrimeHashMap crimeHashMap;
 
@@ -34,7 +34,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         this.scanner = new Scanner(System.in);
         this.validator = new Validator();
         this.solicitorArrayList = new SolicitorArrayList();
-        this.prosecutorLinkedList = new ProsecutorLinkedList<>();
+        this.prosecutorLinkedList = new ProsecutorLinkedList();
         this.suspectedHashSet = new SuspectedHashSet();
         this.crimeHashMap = new CrimeHashMap();
     }
