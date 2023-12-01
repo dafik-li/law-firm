@@ -22,8 +22,8 @@ public class Validator {
     }
     /*public void validateCrimeName(String crimeType) throws CrimetypeException {
         switch (crimeType) {
-            case "HOMICIDE": EnumCrime.getTypeOfCrime(EnumCrime.valueOf(EnumCrime.getTypeOfCrime(EnumCrime.HOMICIDE))); break;
-            case "ROBBERY": EnumCrime.valueOf(EnumCrime.getTypeOfCrime(EnumCrime.ROBBERY)); break;
+            case "HOMICIDE": EnumCrime.getTypeOfCrime(EnumCrime.HOMICIDE); break;
+            case "ROBBERY": EnumCrime.getTypeOfCrime(EnumCrime.ROBBERY); break;
             case "HOOLIGANISM": EnumCrime.getTypeOfCrime(EnumCrime.HOOLIGANISM); break;
         }
         throw new CrimetypeException("Entered an invalid crime name. You typed - " + crimeType);
