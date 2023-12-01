@@ -1,6 +1,6 @@
 package com.solvd.lawfirm.controller;
 
-import com.solvd.lawfirm.collections.EnumCrime;
+import com.solvd.lawfirm.entity.crimes.EnumCrime;
 //import com.solvd.lawfirm.entity.crimes.*;
 import com.solvd.lawfirm.exceptions.CrimetypeException;
 import com.solvd.lawfirm.exceptions.ProsecutorLevelException;
@@ -8,21 +8,27 @@ import com.solvd.lawfirm.exceptions.SolicitorLevelException;
 import com.solvd.lawfirm.exceptions.WasArrestedBeforeException;
 
 public class Validator {
-    EnumCrime enumCrime;
 
     public void validateCrimeName(String crimeName) throws CrimetypeException {
-        switch (crimeName) {
-            case "homicide" : enumCrime = EnumCrime.HOMICIDE; break;
-            case "robbery" : enumCrime = EnumCrime.ROBBERY; break;
-            case "hooliganism" : enumCrime = EnumCrime.HOOLIGANISM; break;
-            default : enumCrime = EnumCrime.DEFAULT; break;
+        if (crimeName.equals(EnumCrime.HOMICIDE.name())) {
+            return;
         }
-        crimeName.isEmpty();
-        if (!crimeName.equals(enumCrime.getTypeOfCrime()))
-        {
+        if (crimeName.equals(EnumCrime.ROBBERY.name())) {
+            return;
+        }if (crimeName.equals(EnumCrime.HOOLIGANISM.name())) {
+            return;
+        }
             throw new CrimetypeException("Entered an invalid crime name. You typed - " + crimeName);
-        }
     }
+    /*public void validateCrimeName(String crimeType) throws CrimetypeException {
+        switch (crimeType) {
+            case "HOMICIDE": EnumCrime.getTypeOfCrime(EnumCrime.valueOf(EnumCrime.getTypeOfCrime(EnumCrime.HOMICIDE))); break;
+            case "ROBBERY": EnumCrime.valueOf(EnumCrime.getTypeOfCrime(EnumCrime.ROBBERY)); break;
+            case "HOOLIGANISM": EnumCrime.getTypeOfCrime(EnumCrime.HOOLIGANISM); break;
+        }
+        throw new CrimetypeException("Entered an invalid crime name. You typed - " + crimeType);
+    }
+     */
     public void validateSolicitorLevel(int levelSolicitor) throws SolicitorLevelException {
         if (levelSolicitor > 3) {
             throw new SolicitorLevelException("Entered level is great than 3. You typed - " + levelSolicitor);

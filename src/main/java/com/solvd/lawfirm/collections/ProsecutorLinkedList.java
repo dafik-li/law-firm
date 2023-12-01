@@ -26,7 +26,6 @@ public class ProsecutorLinkedList {
         prosecutorLinkedList.add(creator.createProsecutorPerson('m', "leo", "dicaprio", 40, 2));
         return prosecutorLinkedList;
     }
-
      */
     public LinkedList<ProsecutorPerson> createProsecutorPersonLinkedList() {
 
@@ -35,8 +34,6 @@ public class ProsecutorLinkedList {
         prosecutorPersonLinkedList.add(creator.createProsecutorPerson('m', "brad", "pitt", 50, 1));
         prosecutorPersonLinkedList.add(creator.createProsecutorPerson('m', "leo", "dicaprio", 40, 2));
         return prosecutorPersonLinkedList;
-
-
     }
 
     public ProsecutorPerson findSProsecutor(int level) throws Exception {
@@ -49,7 +46,6 @@ public class ProsecutorLinkedList {
         throw new Exception("Cannot find prosecutor");
     }
 
-
     /*public ProsecutorPerson findSProsecutor(int level) throws Exception {
         CustomLinkedList<ProsecutorPerson> prosecutorList = createProsecutorPersonLinkedList();
         for (ProsecutorPerson prosecutor : prosecutorList) {
@@ -59,7 +55,6 @@ public class ProsecutorLinkedList {
         }
         throw new Exception("Cannot find prosecutor");
     }
-
      */
 }
 

@@ -1,4 +1,4 @@
-package com.solvd.lawfirm.interfaces;
+/*package com.solvd.lawfirm.interfaces;
 
 public interface CrimeInterface {
     String getTypeOfCrime();
@@ -6,3 +6,4 @@ public interface CrimeInterface {
     int getTermOfPunishment();
     void setTermOfPunishment(int termOfPunishment);
 }
+ */
