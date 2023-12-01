@@ -3,13 +3,15 @@ package com.solvd.lawfirm.collections;
 import com.solvd.lawfirm.controller.Creator;
 import com.solvd.lawfirm.entity.persons.ProsecutorPerson;
 
+import java.util.LinkedList;
+
 public class ProsecutorLinkedList {
     private Creator creator;
 
     public ProsecutorLinkedList() {
         this.creator = new Creator();
     }
-    public CustomLinkedList<ProsecutorPerson> createProsecutorPersonLinkedList() {
+    /*public CustomLinkedList<ProsecutorPerson> createProsecutorPersonLinkedList() {
         CustomLinkedList<ProsecutorPerson> prosecutorLinkedList = new CustomLinkedList<>();
         prosecutorLinkedList.isEmpty();
         prosecutorLinkedList.getSize();
@@ -24,7 +26,9 @@ public class ProsecutorLinkedList {
         prosecutorLinkedList.add(creator.createProsecutorPerson('m', "leo", "dicaprio", 40, 2));
         return prosecutorLinkedList;
     }
-    /*public LinkedList<ProsecutorPerson> createProsecutorPersonLinkedList() {
+
+     */
+    public LinkedList<ProsecutorPerson> createProsecutorPersonLinkedList() {
 
         LinkedList<ProsecutorPerson> prosecutorPersonLinkedList = new LinkedList<>();
         prosecutorPersonLinkedList.add(creator.createProsecutorPerson('m', "johnny", "depp", 50, 3));
@@ -45,8 +49,8 @@ public class ProsecutorLinkedList {
         throw new Exception("Cannot find prosecutor");
     }
 
-     */
-    public ProsecutorPerson findSProsecutor(int level) throws Exception {
+
+    /*public ProsecutorPerson findSProsecutor(int level) throws Exception {
         CustomLinkedList<ProsecutorPerson> prosecutorList = createProsecutorPersonLinkedList();
         for (ProsecutorPerson prosecutor : prosecutorList) {
             if (prosecutor.getProsecutorLevel() == level) {
@@ -55,6 +59,8 @@ public class ProsecutorLinkedList {
         }
         throw new Exception("Cannot find prosecutor");
     }
+
+     */
 }
 
 

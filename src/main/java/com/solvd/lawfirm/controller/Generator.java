@@ -1,11 +1,8 @@
 package com.solvd.lawfirm.controller;
 
-import com.solvd.lawfirm.collections.CrimeHashMap;
-import com.solvd.lawfirm.collections.ProsecutorLinkedList;
-import com.solvd.lawfirm.collections.SolicitorArrayList;
-import com.solvd.lawfirm.collections.SuspectedHashSet;
+import com.solvd.lawfirm.collections.*;
 import com.solvd.lawfirm.entity.result.Result;
-import com.solvd.lawfirm.entity.crimes.*;
+//import com.solvd.lawfirm.entity.crimes.*;
 import com.solvd.lawfirm.entity.persons.*;
 import com.solvd.lawfirm.exceptions.CrimetypeException;
 import com.solvd.lawfirm.exceptions.ProsecutorLevelException;
@@ -28,7 +25,8 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
     private final SolicitorArrayList solicitorArrayList;
     private final ProsecutorLinkedList prosecutorLinkedList;
     private final SuspectedHashSet suspectedHashSet;
-    private final CrimeHashMap crimeHashMap;
+    //private final CrimeHashMap crimeHashMap;
+    EnumCrime enumCrime;
 
     public Generator() {
         this.scanner = new Scanner(System.in);
@@ -36,9 +34,9 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         this.solicitorArrayList = new SolicitorArrayList();
         this.prosecutorLinkedList = new ProsecutorLinkedList();
         this.suspectedHashSet = new SuspectedHashSet();
-        this.crimeHashMap = new CrimeHashMap();
+        //this.crimeHashMap = new CrimeHashMap();
     }
-    private AbstractCrime getCrime() throws Exception {
+    private EnumCrime getCrime() throws Exception {
         LOGGER.info("\n" + "Type the crime (homicide, robbery, hooliganism): ");
         String crimeName = scanner.nextLine();
         try {
@@ -48,7 +46,8 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
             return getCrime();
         }
         LOGGER.info("The type of crime is - " + crimeName);
-        return crimeHashMap.findCrime(crimeHashMap.createCrimeHashMap(), crimeName);
+        return enumCrime; //(com.solvd.lawfirm.collections.EnumCrime) EnumCrime;
+        // return crimeHashMap.findCrime(crimeHashMap.createCrimeHashMap(), crimeName);
     }
     @Override
     public int getSolicitorLevel() {
@@ -105,7 +104,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         return false;
     }
     private static class Judge {
-        public double exeCalc(SuspectedPerson suspectedPerson, AbstractCrime abstractCrime, SolicitorPerson solicitorPerson, ProsecutorPerson prosecutorPerson) {
+        public double exeCalc(SuspectedPerson suspectedPerson, EnumCrime enumCrime, SolicitorPerson solicitorPerson, ProsecutorPerson prosecutorPerson) {
             double ratio;
 
             if (suspectedPerson.isWasArrestedBefore()) {
@@ -113,14 +112,14 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
             } else {
                 ratio = 0.5;
             }
-            return (ratio * abstractCrime.getTermOfPunishment()) / ((double) solicitorPerson.getSolicitorLevel() / prosecutorPerson.getProsecutorLevel());
+            return (ratio * enumCrime.getTermOfPunishment()) / ((double) solicitorPerson.getSolicitorLevel() / prosecutorPerson.getProsecutorLevel());
         }
-        public double exeCalc(SolicitorPerson solicitorPerson, AbstractCrime abstractCrime) {
-            return 1000 * solicitorPerson.getSolicitorLevel() * ((double) abstractCrime.getTermOfPunishment() / 5);
+        public double exeCalc(SolicitorPerson solicitorPerson, EnumCrime enumCrime) {
+            return 1000 * solicitorPerson.getSolicitorLevel() * ((double) enumCrime.getTermOfPunishment() / 5);
         }
     }
     public void getResult() throws Exception {
-        AbstractCrime crime = getCrime();
+        EnumCrime crime = getCrime();
         SolicitorPerson solicitor = solicitorArrayList.findSolicitor(getSolicitorLevel());
         ProsecutorPerson prosecutor = prosecutorLinkedList.findSProsecutor(getProsecutorLevel());
         SuspectedPerson suspected = suspectedHashSet.findSuspected(isWasArrestedBefore());

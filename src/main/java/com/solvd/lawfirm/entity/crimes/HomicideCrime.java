@@ -1,4 +1,4 @@
-package com.solvd.lawfirm.entity.crimes;
+/*package com.solvd.lawfirm.entity.crimes;
 
 public class HomicideCrime extends AbstractCrime {
     protected String typeOfCrime = "homicide";
@@ -21,3 +21,5 @@ public class HomicideCrime extends AbstractCrime {
         this.termOfPunishment = termOfPunishment;
     }
 }
+
+ */

@@ -1,23 +1,25 @@
 package com.solvd.lawfirm.controller;
 
-import com.solvd.lawfirm.entity.crimes.*;
+import com.solvd.lawfirm.collections.EnumCrime;
+//import com.solvd.lawfirm.entity.crimes.*;
 import com.solvd.lawfirm.exceptions.CrimetypeException;
 import com.solvd.lawfirm.exceptions.ProsecutorLevelException;
 import com.solvd.lawfirm.exceptions.SolicitorLevelException;
 import com.solvd.lawfirm.exceptions.WasArrestedBeforeException;
 
 public class Validator {
-    AbstractCrime abstractCrime;
+    EnumCrime enumCrime;
 
     public void validateCrimeName(String crimeName) throws CrimetypeException {
         switch (crimeName) {
-            case "homicide" : abstractCrime = new HomicideCrime(); break;
-            case "robbery" : abstractCrime = new RobberyCrime(); break;
-            case "hooliganism" : abstractCrime = new HooliganismCrime(); break;
-            default : abstractCrime = new DefaultCrime(); break;
+            case "homicide" : enumCrime = EnumCrime.HOMICIDE; break;
+            case "robbery" : enumCrime = EnumCrime.ROBBERY; break;
+            case "hooliganism" : enumCrime = EnumCrime.HOOLIGANISM; break;
+            default : enumCrime = EnumCrime.DEFAULT; break;
         }
-        crimeName.isEmpty()
-        if (!crimeName.equals(abstractCrime.getTypeOfCrime())) {
+        crimeName.isEmpty();
+        if (!crimeName.equals(enumCrime.getTypeOfCrime()))
+        {
             throw new CrimetypeException("Entered an invalid crime name. You typed - " + crimeName);
         }
     }

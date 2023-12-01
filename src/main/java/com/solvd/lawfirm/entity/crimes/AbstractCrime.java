@@ -1,4 +1,4 @@
-package com.solvd.lawfirm.entity.crimes;
+/*package com.solvd.lawfirm.entity.crimes;
 
 import com.solvd.lawfirm.interfaces.CrimeInterface;
 
@@ -33,3 +33,5 @@ abstract public class AbstractCrime implements CrimeInterface {
         return Objects.hash(getTypeOfCrime(), getTermOfPunishment());
     }
 }
+
+ */

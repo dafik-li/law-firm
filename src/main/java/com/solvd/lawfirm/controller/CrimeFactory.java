@@ -1,4 +1,4 @@
-package com.solvd.lawfirm.controller;
+/*package com.solvd.lawfirm.controller;
 
 import com.solvd.lawfirm.entity.crimes.*;
 
@@ -17,3 +17,5 @@ public class CrimeFactory {
         return new DefaultCrime();
     }
 }
+
+ */
