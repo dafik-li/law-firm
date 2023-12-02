@@ -105,7 +105,8 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         return false;
     }
     private static class Judge {
-        public double exeCalc(SuspectedPerson suspectedPerson, String crimeType, SolicitorPerson solicitorPerson, ProsecutorPerson prosecutorPerson) {
+        public double exeCalc (SuspectedPerson suspectedPerson, String crimeType, SolicitorPerson
+        solicitorPerson, ProsecutorPerson prosecutorPerson){
             double ratio;
 
             if (suspectedPerson.isWasArrestedBefore()) {
@@ -117,7 +118,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
                     / ((double) solicitorPerson.getSolicitorLevel()
                     / prosecutorPerson.getProsecutorLevel());
         }
-        public double exeCalc(SolicitorPerson solicitorPerson, String crimeType) {
+        public double exeCalc (SolicitorPerson solicitorPerson, String crimeType){
             return 1000 * solicitorPerson.getSolicitorLevel() * ((double) EnumCrime.getTermOfPunishment(EnumCrime.valueOf(crimeType)) / 5);
         }
     }

@@ -12,24 +12,8 @@ public enum EnumCrime {
         this.typeOfCrime = typeOfCrime;
         this.termOfPunishment = termOfPunishment;
     }
-
-    public static String getTypeOfCrime(EnumCrime crimeType) {
-        switch (crimeType) {
-            case HOMICIDE: return HOMICIDE.typeOfCrime;
-            case ROBBERY: return ROBBERY.typeOfCrime;
-            case HOOLIGANISM: return HOOLIGANISM.typeOfCrime;
-            case DEFAULT: return DEFAULT.name();
-        }
-        return DEFAULT.name();
-    }
     public static int getTermOfPunishment(EnumCrime crimeType) {
-        switch (crimeType) {
-            case HOMICIDE: return HOMICIDE.termOfPunishment;
-            case ROBBERY: return ROBBERY.termOfPunishment;
-            case HOOLIGANISM: return HOOLIGANISM.termOfPunishment;
-            case DEFAULT: return DEFAULT.termOfPunishment;
-        }
-        return 0;
+        return crimeType.termOfPunishment;
     }
 }
 

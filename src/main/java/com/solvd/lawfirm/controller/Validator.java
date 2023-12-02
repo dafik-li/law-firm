@@ -22,7 +22,7 @@ public class Validator {
     }
     /*public void validateCrimeName(String crimeType) throws CrimetypeException {
         switch (crimeType) {
-            case "HOMICIDE": EnumCrime.getTypeOfCrime(EnumCrime.HOMICIDE); break;
+            case "HOMICIDE": EnumCrime.getTypeOfCrime(EnumCrime.valueOf(crimeType))); break;
             case "ROBBERY": EnumCrime.getTypeOfCrime(EnumCrime.ROBBERY); break;
             case "HOOLIGANISM": EnumCrime.getTypeOfCrime(EnumCrime.HOOLIGANISM); break;
         }
