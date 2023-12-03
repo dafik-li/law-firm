@@ -1,18 +1,20 @@
 package com.solvd.lawfirm.entity.persons;
 
-import com.solvd.lawfirm.interfaces.LevelProsecutorInterface;
-
+import com.solvd.lawfirm.interfaces.LevelInterface;
 import java.util.Objects;
+import java.util.function.Supplier;
 
-public class ProsecutorPerson extends AbstractPerson implements LevelProsecutorInterface {
+public class ProsecutorPerson extends AbstractPerson implements LevelInterface<ProsecutorPerson> {
     private int level;
+    private final Supplier<Integer> integerSupplier;
 
     public ProsecutorPerson(char gender, String name, String surname, int age, int level) {
         super(gender, name, surname, age);
         this.level = level;
+        this.integerSupplier = () -> this.getLevel(this);
     }
     @Override
-    public int getProsecutorLevel() {
+    public int getLevel(ProsecutorPerson prosecutorPerson) {
         return level;
     }
     public void setLevel(int level) {
@@ -32,6 +34,6 @@ public class ProsecutorPerson extends AbstractPerson implements LevelProsecutorI
     }
     @Override
     public String toString() {
-        return super.toString() + "\n" + "Level: " + getProsecutorLevel();
+        return super.toString() + "\n" + "Level: " + integerSupplier.get();
     }
 }

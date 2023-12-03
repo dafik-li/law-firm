@@ -64,6 +64,9 @@ abstract public class AbstractPerson implements PersonInterface {
     }
     @Override
     public String toString() {
-        return "Gender: " + getGender() + "\n" + "Name: " + getName() + "\n" + "Surname: " + getSurname() + "\n" + "Age: " + getAge();
+        return "Gender: " + getGender() + "\n"
+                + "Name: " + getName() + "\n"
+                + "Surname: " + getSurname() + "\n"
+                + "Age: " + getAge();
     }
 }

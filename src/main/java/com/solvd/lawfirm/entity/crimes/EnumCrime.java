@@ -12,6 +12,9 @@ public enum EnumCrime {
         this.typeOfCrime = typeOfCrime;
         this.termOfPunishment = termOfPunishment;
     }
+    public static String getTypeOfCrime(EnumCrime crimeType) {
+        return crimeType.typeOfCrime;
+    }
     public static int getTermOfPunishment(EnumCrime crimeType) {
         return crimeType.termOfPunishment;
     }
