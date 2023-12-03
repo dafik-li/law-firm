@@ -32,7 +32,6 @@ public class Generator {
         this.prosecutorLinkedList = new ProsecutorLinkedList();
         this.suspectedHashSet = new SuspectedHashSet();
         //this.crimeHashMap = new CrimeHashMap();
-
     }
     private String getCrimeType() {
         LOGGER.info("\n" + "Type the crime (HOMICIDE, ROBBERY, HOOLIGANISM): ");

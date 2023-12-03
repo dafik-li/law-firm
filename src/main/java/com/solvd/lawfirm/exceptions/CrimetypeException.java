@@ -5,6 +5,5 @@ public class CrimetypeException extends Exception {
         super(message);
     }
 }
-
  */
 
