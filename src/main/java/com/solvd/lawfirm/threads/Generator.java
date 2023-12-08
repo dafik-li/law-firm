@@ -3,6 +3,7 @@ package com.solvd.lawfirm.threads;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,9 +47,45 @@ public class Generator {
             thread.start();
         }
         waitBeforeFilling();
+        LOGGER.info("Finished all threads");
     }
     public void waitBeforeFilling() {
         while (!(connectionPool.getNumberAvailableConnections() == connectionPool.getPoolNumbers())) {
         }
     }
+    public void loadConnectionUsingCompletableFuture() {
+        Connection connection1 = connectionPool.getConnection();
+        CompletableFuture.runAsync(connection1);
+        Connection connection2 = connectionPool.getConnection();
+        CompletableFuture.runAsync(connection2);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 5; i++) {
+            CompletableFuture.runAsync(new Connection(i), executor);
+        }
+        executor.shutdown();
+        waitBeforeFilling();
+        while (!executor.isTerminated()) {
+        }
+        LOGGER.info("Completable Future - Finished all threads and pool");
+    }
+
+    public void loadConnectionByThreadPoolUsingCompletableFuture() {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 7; i++) {
+            CompletableFuture.runAsync(new Connection(i), executor);
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        LOGGER.info("Completable Future - Finished all threads in the pool");
+    }
+    public void loadConnectionByThreadUsingCompletableFuture() {
+        for (int i = 0; i < 7; i++) {
+            Connection connection = connectionPool.getConnection();
+            CompletableFuture.runAsync(connection);
+        }
+        waitBeforeFilling();
+        LOGGER.info("Completable Future - Finished all threads");
+    }
 }
+

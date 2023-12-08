@@ -1,21 +1,16 @@
 package com.solvd.lawfirm.threads;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConnectionPool {
     //lazy-initialization - initialize object in getInstance
     //thread-safe - using volatile
     private volatile static ConnectionPool instance;
-    private final Queue<Connection> connections = new ConcurrentLinkedQueue<>();
+    private final List<Connection> connections = new CopyOnWriteArrayList<>();
     private final int poolNumbers;
 
     public ConnectionPool(int poolNumbers) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
         this.poolNumbers = poolNumbers;
         for (int i = 0; i < this.poolNumbers; i++) {
             connections.add(new Connection(i + 1));
@@ -44,7 +39,7 @@ public class ConnectionPool {
                 }
             }
         }
-        return connections.remove();
+        return connections.remove(connections.size() - 1);
     }
     public void releaseConnection(Connection connection) {
         if (connections.size() < this.poolNumbers) {

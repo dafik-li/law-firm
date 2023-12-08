@@ -21,7 +21,7 @@ public class ThreadPool extends Thread {
     }
     private void processCommand() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

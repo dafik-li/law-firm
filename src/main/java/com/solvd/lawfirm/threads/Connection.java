@@ -8,7 +8,7 @@ public class Connection implements Runnable{
         System.setProperty("log4j.configurationFile", "log4j2.xml");
     }
     private final static Logger LOGGER = (Logger) LogManager.getLogger(Connection.class);
-    private int number;
+    private final int number;
 
     public Connection(int number) {
         this.number = number;
@@ -17,7 +17,7 @@ public class Connection implements Runnable{
     public void run() {
         LOGGER.info("Connection " + number + " started");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
