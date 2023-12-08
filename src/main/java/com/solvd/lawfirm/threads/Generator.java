@@ -52,22 +52,6 @@ public class Generator {
         while (!(connectionPool.getNumberAvailableConnections() == connectionPool.getPoolNumbers())) {
         }
     }
-    public void loadConnectionUsingCompletableFuture() {
-        Connection connection1 = connectionPool.getConnection();
-        CompletableFuture.runAsync(connection1);
-        Connection connection2 = connectionPool.getConnection();
-        CompletableFuture.runAsync(connection2);
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 5; i++) {
-            CompletableFuture.runAsync(new Connection(i), executor);
-        }
-        executor.shutdown();
-        waitBeforeFilling();
-        while (!executor.isTerminated()) {
-        }
-        LOGGER.info("Completable Future - Finished all threads and pool");
-    }
-
     public void loadConnectionByThreadPoolUsingCompletableFuture() {
         ExecutorService executor = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 7; i++) {

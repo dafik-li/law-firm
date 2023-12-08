@@ -7,7 +7,6 @@ public class Execute {
         generator.loadConnection();
         generator.loadConnectionByThreadPool();
         generator.loadConnectionByThread();
-        generator.loadConnectionUsingCompletableFuture();
         generator.loadConnectionByThreadPoolUsingCompletableFuture();
         generator.loadConnectionByThreadUsingCompletableFuture();
     }
