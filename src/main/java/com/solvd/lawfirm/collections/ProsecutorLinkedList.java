@@ -64,16 +64,7 @@ public class ProsecutorLinkedList {
         throw new Exception("Cannot find prosecutor");
     }
      */
-    /*public ProsecutorPerson findSProsecutor(int level) throws Exception {
-        CustomLinkedList<ProsecutorPerson> prosecutorList = createProsecutorPersonLinkedList();
-        for (ProsecutorPerson prosecutor : prosecutorList) {
-            if (prosecutor.getLevel(prosecutor) == level) {
-                return prosecutor;
-            }
-        }
-        throw new Exception("Cannot find prosecutor");
-    }
-     */
+
 }
 
 
