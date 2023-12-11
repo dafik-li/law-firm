@@ -3,7 +3,6 @@ package com.solvd.lawfirm.entity.result;
 import com.solvd.lawfirm.entity.persons.ProsecutorPerson;
 import com.solvd.lawfirm.entity.persons.SolicitorPerson;
 import com.solvd.lawfirm.entity.persons.SuspectedPerson;
-
 import java.util.Objects;
 
 public class Result {
@@ -58,8 +57,9 @@ public class Result {
     }
     @Override
     public String toString() {
-        return "Court decision: " + getResultYears()  + " years" + "\n" + "\n" + "Prisoner:___________________" + "\n" + getSuspectedPersona() + "\n" + "\n" +
-                "Solicitor:___________________" + "\n" + getSolicitorPersona() + "\n" + "\n" +
-                "Prosecutor:___________________" + "\n" + getProsecutorPersona();
+        return "Court decision: " + getResultYears()  + " years" + "\n" + "\n"
+                + "Prisoner:___________________" + "\n" + getSuspectedPersona() + "\n" + "\n"
+                + "Solicitor:___________________" + "\n" + getSolicitorPersona() + "\n" + "\n"
+                + "Prosecutor:___________________" + "\n" + getProsecutorPersona();
     }
 }

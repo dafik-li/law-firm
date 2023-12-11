@@ -1,24 +1,19 @@
 package com.solvd.lawfirm.controller;
 
-import com.solvd.lawfirm.collections.CrimeHashMap;
-import com.solvd.lawfirm.collections.ProsecutorLinkedList;
-import com.solvd.lawfirm.collections.SolicitorArrayList;
-import com.solvd.lawfirm.collections.SuspectedHashSet;
+import com.solvd.lawfirm.collections.*;
+import com.solvd.lawfirm.entity.crimes.EnumCrime;
 import com.solvd.lawfirm.entity.result.Result;
-import com.solvd.lawfirm.entity.crimes.*;
+//import com.solvd.lawfirm.entity.crimes.*;
 import com.solvd.lawfirm.entity.persons.*;
-import com.solvd.lawfirm.exceptions.CrimetypeException;
-import com.solvd.lawfirm.exceptions.ProsecutorLevelException;
-import com.solvd.lawfirm.exceptions.SolicitorLevelException;
-import com.solvd.lawfirm.exceptions.WasArrestedBeforeException;
-import com.solvd.lawfirm.interfaces.LevelProsecutorInterface;
-import com.solvd.lawfirm.interfaces.LevelSolicitorInterface;
+import com.solvd.lawfirm.exceptions.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import java.io.*;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class Generator implements LevelProsecutorInterface, LevelSolicitorInterface {
+public class Generator {
     static {
         System.setProperty("log4j.configurationFile", "log4j2.xml");
     }
@@ -28,7 +23,7 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
     private final SolicitorArrayList solicitorArrayList;
     private final ProsecutorLinkedList prosecutorLinkedList;
     private final SuspectedHashSet suspectedHashSet;
-    private final CrimeHashMap crimeHashMap;
+    //private final CrimeHashMap crimeHashMap;
 
     public Generator() {
         this.scanner = new Scanner(System.in);
@@ -36,59 +31,44 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         this.solicitorArrayList = new SolicitorArrayList();
         this.prosecutorLinkedList = new ProsecutorLinkedList();
         this.suspectedHashSet = new SuspectedHashSet();
-        this.crimeHashMap = new CrimeHashMap();
+        //this.crimeHashMap = new CrimeHashMap();
+
     }
-    private AbstractCrime getCrime() throws Exception {
-        LOGGER.info("\n" + "Type the crime (homicide, robbery, hooliganism): ");
+    private String getCrimeType() {
+        LOGGER.info("\n" + "Type the crime (HOMICIDE, ROBBERY, HOOLIGANISM): ");
         String crimeName = scanner.nextLine();
         try {
+            Function<EnumCrime, String> convert = String::valueOf;
+            convert.apply(EnumCrime.valueOf(crimeName));
+            //crimeName = EnumCrime.getTypeOfCrime(EnumCrime.valueOf(crimeName));
             validator.validateCrimeName(crimeName);
-        } catch (CrimetypeException e) {
+        } catch (IllegalArgumentException e) {
             LOGGER.error(e.toString());
-            return getCrime();
+            return getCrimeType();
         }
         LOGGER.info("The type of crime is - " + crimeName);
-        return crimeHashMap.findCrime(crimeHashMap.createCrimeHashMap(), crimeName);
+        return crimeName;
+        // return crimeHashMap.findCrime(crimeHashMap.createCrimeHashMap(), crimeName);
     }
-    @Override
-    public int getSolicitorLevel() {
-        LOGGER.info("\n" + "Enter the solicitor level (from 1 - to 3): ");
-        int levelSolicitor;
+    public int getLevelFromConsole(String type) {
+        Consumer<String> enterLevel = x -> LOGGER.info("\n" + "Enter the " + x + " level (from 1 - to 3): ");
+        enterLevel.accept(type);
+        int levelFromConsole;
         String level = scanner.nextLine();
         try {
-            levelSolicitor = Integer.parseInt(level);
+            levelFromConsole = Integer.parseInt(level);
             try {
-                validator.validateSolicitorLevel(levelSolicitor);
-                LOGGER.info("Solicitor level is - " + levelSolicitor);
-            } catch (SolicitorLevelException e) {
+                validator.validateLevelFromConsole(levelFromConsole);
+                LOGGER.info(type + " level is - " + levelFromConsole);
+            } catch (LevelFromConsoleException e) {
                 LOGGER.error(e.toString());
-                levelSolicitor = getSolicitorLevel();
+                levelFromConsole = getLevelFromConsole(type);
             }
         } catch (NumberFormatException e) {
             LOGGER.error(e.toString());
-            levelSolicitor = getSolicitorLevel();
+            levelFromConsole = getLevelFromConsole(type);
         }
-        return levelSolicitor;
-    }
-    @Override
-    public int getProsecutorLevel() {
-        LOGGER.info("\n" + "Enter the prosecutor level (from 1 - to 3): ");
-        int levelProsecutor;
-        String level = scanner.nextLine();
-        try {
-            levelProsecutor = Integer.parseInt(level);
-            try {
-                validator.validateProsecutorLevel(levelProsecutor);
-                LOGGER.info("Prosecutor level is - " + levelProsecutor);
-            } catch (ProsecutorLevelException e) {
-                LOGGER.error(e.toString());
-                levelProsecutor = getProsecutorLevel();
-            }
-        } catch (NumberFormatException e) {
-            LOGGER.error(e.toString());
-            levelProsecutor = getProsecutorLevel();
-        }
-        return levelProsecutor;
+        return levelFromConsole;
     }
     private boolean isWasArrestedBefore() {
         LOGGER.info("\n" + "Is arrested before (1 - yes, 0 - no)?: ");
@@ -105,7 +85,8 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
         return false;
     }
     private static class Judge {
-        public double exeCalc(SuspectedPerson suspectedPerson, AbstractCrime abstractCrime, SolicitorPerson solicitorPerson, ProsecutorPerson prosecutorPerson) {
+        public double exeCalc (SuspectedPerson suspectedPerson, String crimeType, SolicitorPerson
+        solicitorPerson, ProsecutorPerson prosecutorPerson){
             double ratio;
 
             if (suspectedPerson.isWasArrestedBefore()) {
@@ -113,21 +94,24 @@ public class Generator implements LevelProsecutorInterface, LevelSolicitorInterf
             } else {
                 ratio = 0.5;
             }
-            return (ratio * abstractCrime.getTermOfPunishment()) / ((double) solicitorPerson.getSolicitorLevel() / prosecutorPerson.getProsecutorLevel());
+            return (ratio * EnumCrime.getTermOfPunishment(EnumCrime.valueOf(crimeType)))
+                    / ((double) solicitorPerson.getLevel(solicitorPerson)
+                    / prosecutorPerson.getLevel(prosecutorPerson));
         }
-        public double exeCalc(SolicitorPerson solicitorPerson, AbstractCrime abstractCrime) {
-            return 1000 * solicitorPerson.getSolicitorLevel() * ((double) abstractCrime.getTermOfPunishment() / 5);
+        public double exeCalc (SolicitorPerson solicitorPerson, String crimeType){
+            return 1000 * solicitorPerson.getLevel(solicitorPerson)
+                    * ((double) EnumCrime.getTermOfPunishment(EnumCrime.valueOf(crimeType)) / 5);
         }
     }
     public void getResult() throws Exception {
-        AbstractCrime crime = getCrime();
-        SolicitorPerson solicitor = solicitorArrayList.findSolicitor(getSolicitorLevel());
-        ProsecutorPerson prosecutor = prosecutorLinkedList.findSProsecutor(getProsecutorLevel());
+        String crimeType = getCrimeType();
+        SolicitorPerson solicitor = solicitorArrayList.findSolicitor(getLevelFromConsole("solicitor"));
+        ProsecutorPerson prosecutor = prosecutorLinkedList.findSProsecutor(getLevelFromConsole("prosecutor"));
         SuspectedPerson suspected = suspectedHashSet.findSuspected(isWasArrestedBefore());
         Judge calcResult = new Judge();
-        double resultYears = calcResult.exeCalc(suspected, crime, solicitor, prosecutor);
+        double resultYears = calcResult.exeCalc(suspected, crimeType, solicitor, prosecutor);
         Result result = new Result(resultYears, suspected, solicitor, prosecutor);
-        double sum = calcResult.exeCalc(solicitor, crime);
+        double sum = calcResult.exeCalc(solicitor, crimeType);
         LOGGER.info("\n" + result + "\n");
         LOGGER.info("\n" + "The payment is: " + sum);
         try (PrintWriter writer = new PrintWriter("judgement.txt")) {
